@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div class="row">
+  <div class="col-4 mx-auto mt-3">
+    <form-validation></form-validation>
   </div>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import {
+    required,
+    minLength,
+    between
+  } from 'vuelidate/lib/validators'
+  import formValidation from './components/FormValidation'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+
+  export default {
+    name: 'App',
+    data() {
+      return {
+        step: 1,
+        name: '',
+        age: 0
+      }
+    },
+    componets: {
+      formValidation
+    },
+    validations: {
+      name: {
+        required,
+        minLength: minLength(4)
+      },
+      age: {
+        required,
+        between: between(18, Infinity)
+      }
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
