@@ -1,7 +1,7 @@
 <template>
 <div class="row">
   <div class="col-4 mx-auto mt-3">
-      <example :step="step" v-show="step === 1" />
+      <example :step="step" />
   </div>
 </div>
 </template>
@@ -15,7 +15,7 @@ import {bus} from "@/main";
     name: 'App',
     data() {
       return {
-        step: 1,
+        step: 0,
         name: '',
         age: 0
       }
