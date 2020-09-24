@@ -1,23 +1,34 @@
 <template>
   <div>
     <form novalidate>
-<!--      <div class="form-group"-->
-<!--           v-for="(item, index) in all[step]" :key="index">-->
-<!--        <label :for="item.for">{{ item.label }}</label>-->
-<!--        <input :type="item.type" :placeholder="item.placeholder" class="form-control" :id="item.for">-->
-<!--      </div>-->
-      <div class="sldvkmsdvl">
-        <div v-for="(i, index) in 10" :key="index">{{ i }}</div>
+      <div class="form-group"
+           v-for="(item, index) in all[step]" :key="index">
+        <label :for="item.for">{{ item.label }}</label>
+        <input :type="item.type" :placeholder="item.placeholder" class="form-control" :id="item.for">
       </div>
       <button
-          type="button"
-          id="newbtn"
-          class="custom__btn btn-primary"
-          @click="toNextStep"
-      >Next Step
-      </button>
-      <div v-for="(i, index) in n" :key="index">{{i}}</div>
-
+          @click="previousStep"
+          class="custom__btn btn-outline-warning mr-2"
+          v-if="step !== 0"
+      >Previous</button>
+      {{step}}
+      <template>
+        <button
+            v-if="step !== 2"
+            type="button"
+            id="newbtn"
+            class="custom__btn btn-primary"
+            @click="toNextStep"
+        >Next Step
+        </button>
+        <button
+            v-else
+            type="submit"
+            id="finishBtn"
+            class="custom__btn btn-primary"
+        >Next Step
+        </button>
+      </template>
     </form>
   </div>
 </template>
@@ -29,15 +40,8 @@ import {bus} from "@/main";
 export default {
   props: ['step'],
   name: 'Example',
-  computed: {
-    a(e) {
-      console.log(e)
-      return e
-    }
-  },
   data() {
     return {
-      n: [556, 2, 6368, 868543, 6354345, 535],
       all: [
          [
       {
@@ -83,6 +87,24 @@ export default {
              for: 'lastname'
            }
     ],
+          [
+            {
+              id: 0,
+              type: 'text',
+              label: 'Country',
+              placeholder: 'Country',
+              errMsg: 'please enter a valid country',
+              for: 'country'
+            },
+            {
+              id: 1,
+              type: 'text',
+              label: 'City',
+              placeholder: 'City',
+              errMsg: 'please enter a valid city',
+              for: 'city'
+            }
+          ]
       ]
 
     }
@@ -90,6 +112,9 @@ export default {
   methods: {
     toNextStep() {
       bus.$emit('nextStep')
+    },
+    previousStep() {
+      bus.$emit('previousStep')
     }
   }
 }

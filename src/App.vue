@@ -1,7 +1,7 @@
 <template>
 <div class="row">
   <div class="col-4 mx-auto mt-3">
-      <example :step="step" />
+      <example :step="step" :previousStep="previousStep" />
   </div>
 </div>
 </template>
@@ -37,8 +37,10 @@ import {bus} from "@/main";
     },
     methods: {
       next() {
-
         this.step++
+      },
+      previousStep() {
+        this.step--
       }
     },
     mounted() {
