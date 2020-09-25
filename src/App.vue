@@ -1,14 +1,13 @@
 <template>
 <div class="row">
   <div class="col-4 mx-auto mt-3">
-      <example :step="step" :previousStep="previousStep" />
+      <example :step="step" @previousStep="previousStep" @nextStep="nextStep" />
   </div>
 </div>
 </template>
 
 <script>
 import { required, minLength, between } from 'vuelidate/lib/validators'
-import {bus} from "@/main";
 
 
   export default {
@@ -36,17 +35,12 @@ import {bus} from "@/main";
       }
     },
     methods: {
-      next() {
+      nextStep() {
         this.step++
       },
       previousStep() {
         this.step--
       }
     },
-    mounted() {
-      bus.$on('nextStep', () => {
-        this.step++
-      })
-    }
   }
 </script>
